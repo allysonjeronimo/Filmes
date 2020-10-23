@@ -24,13 +24,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupToolbar()
+       // setupToolbar()
         setupRecyclerView()
         getFilmes()
     }
 
     private fun setupToolbar(){
-        setSupportActionBar(tb_main)
+      //  setSupportActionBar(tb_main)
     }
 
     private fun setupRecyclerView(){
