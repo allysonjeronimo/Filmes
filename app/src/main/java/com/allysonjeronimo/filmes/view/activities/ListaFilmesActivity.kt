@@ -1,5 +1,6 @@
 package com.allysonjeronimo.filmes.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -17,7 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListaFilmesActivity : AppCompatActivity(), ListaFilmesContract.ListaFilmesView {
+class ListaFilmesActivity : AppCompatActivity(), ListaFilmesContract.ListaFilmesView, FilmeAdapter.OnClickFilme {
 
     private lateinit var adapter:FilmeAdapter
     private lateinit var presenter:ListaFilmesPresenter
@@ -38,7 +39,7 @@ class ListaFilmesActivity : AppCompatActivity(), ListaFilmesContract.ListaFilmes
 
     private fun setupRecyclerView(){
         rv_filmes.layoutManager = GridLayoutManager(this,  2)
-        adapter = FilmeAdapter()
+        adapter = FilmeAdapter(this)
         rv_filmes.adapter = adapter
     }
 
@@ -53,6 +54,12 @@ class ListaFilmesActivity : AppCompatActivity(), ListaFilmesContract.ListaFilmes
     override fun onDestroy() {
         super.onDestroy()
         presenter.destroyView()
+    }
+
+    override fun onClick(filme: Filme) {
+        val intent = Intent(this, DetalhesFilmeActivity::class.java)
+        intent.putExtra("filme", filme)
+        startActivity(intent)
     }
 
 }

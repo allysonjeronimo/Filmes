@@ -1,5 +1,6 @@
 package com.allysonjeronimo.filmes.view.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import com.allysonjeronimo.filmes.model.domain.Filme
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_filme.view.*
 
-class FilmeAdapter(var list:List<Filme> = mutableListOf<Filme>()) : RecyclerView.Adapter<FilmeAdapter.ViewHolder>() {
+class FilmeAdapter(val context: Context, var list:List<Filme> = mutableListOf<Filme>()) : RecyclerView.Adapter<FilmeAdapter.ViewHolder>() {
 
     @JvmName("setFilmes")
     fun setList(list:List<Filme>){
@@ -22,7 +23,13 @@ class FilmeAdapter(var list:List<Filme> = mutableListOf<Filme>()) : RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_filme, parent, false)
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+        viewHolder.itemView.setOnClickListener {
+            if(context is OnClickFilme){
+                context.onClick(list?.get(viewHolder.adapterPosition))
+            }
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -32,7 +39,7 @@ class FilmeAdapter(var list:List<Filme> = mutableListOf<Filme>()) : RecyclerView
 
     override fun getItemCount(): Int = list?.size ?: 0
 
-    class ViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val tvNome = itemView.tv_nome
         val ivPoster = itemView.iv_poster
 
@@ -42,5 +49,9 @@ class FilmeAdapter(var list:List<Filme> = mutableListOf<Filme>()) : RecyclerView
                 .load("https://image.tmdb.org/t/p/w185/${filme.poster}")
                 .into(ivPoster)
         }
+    }
+
+    interface OnClickFilme{
+        fun onClick(filme:Filme)
     }
 }
