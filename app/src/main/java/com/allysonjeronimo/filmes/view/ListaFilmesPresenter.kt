@@ -7,7 +7,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListaFilmesPresenter(private var view:ListaFilmesContract.ListaFilmesView?) : ListaFilmesContract.ListaFilmesPresenter{
+class ListaFilmesPresenter(
+    private var view:ListaFilmesContract.ListaFilmesView?) : ListaFilmesContract.ListaFilmesPresenter{
 
     override fun getFilmes() {
         ApiService.getInstance()

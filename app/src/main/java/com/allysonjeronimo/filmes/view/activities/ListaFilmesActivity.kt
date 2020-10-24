@@ -19,8 +19,8 @@ import retrofit2.Response
 
 class ListaFilmesActivity : AppCompatActivity(), ListaFilmesContract.ListaFilmesView {
 
-    private var adapter:FilmeAdapter? = null
-    private var presenter:ListaFilmesPresenter? = null
+    private lateinit var adapter:FilmeAdapter
+    private lateinit var presenter:ListaFilmesPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class ListaFilmesActivity : AppCompatActivity(), ListaFilmesContract.ListaFilmes
         setupRecyclerView()
 
         presenter = ListaFilmesPresenter(this)
-        presenter?.getFilmes()
+        presenter.getFilmes()
     }
 
     private fun setupToolbar(){
@@ -43,7 +43,7 @@ class ListaFilmesActivity : AppCompatActivity(), ListaFilmesContract.ListaFilmes
     }
 
     override fun showListaFilmes(list: List<Filme>) {
-        adapter?.setList(list)
+        adapter.setList(list)
     }
 
     override fun showError(){
@@ -52,7 +52,7 @@ class ListaFilmesActivity : AppCompatActivity(), ListaFilmesContract.ListaFilmes
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter?.destroyView()
+        presenter.destroyView()
     }
 
 }
