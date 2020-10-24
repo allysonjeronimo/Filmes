@@ -38,7 +38,9 @@ class FilmeAdapter(var list:List<Filme> = mutableListOf<Filme>()) : RecyclerView
 
         fun bind(filme:Filme){
             tvNome.text = filme.titulo
-            Picasso.get().load("https://image.tmdb.org/t/p/w185/${filme.poster}").into(ivPoster)
+            Picasso.get()
+                .load("https://image.tmdb.org/t/p/w185/${filme.poster}")
+                .into(ivPoster)
         }
     }
 }
